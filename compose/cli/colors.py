@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
-import colorama
+import platform
 
 NAMES = [
     'grey',
@@ -33,7 +33,9 @@ def make_color_fn(code):
     return lambda s: ansi_color(code, s)
 
 
-colorama.init(strip=False)
+if platform.system() == 'Windows':
+    import colorama
+    colorama.init(strip=False)
 for (name, code) in get_pairs():
     globals()[name] = make_color_fn(code)
 
